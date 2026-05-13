@@ -19,7 +19,7 @@ export default function CartPage() {
                         <span className="text-4xl">🛒</span>
                     </div>
                     <h1 className="text-3xl font-heading text-enerseal dark:text-white mb-2 tracking-wide">
-                        Tu Carrito Está Vacío
+                        Tu Carrito fantasma 
                     </h1>
                     <p className="text-zinc-500 dark:text-zinc-400 mb-8">
                         ¡Agrega algunos productos para comenzar!
