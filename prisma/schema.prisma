@@ -1,0 +1,118 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  email        String         @unique
+  password     String
+  name         String
+  phone        String?
+  address      String?
+  role         String         @default("CUSTOMER")
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  orders       Order[]
+  couponUsages CouponUsage[]
+  chatSessions ChatSession[]
+}
+
+model Product {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  image       String
+  category    String      @default("general")
+  stock       Int         @default(0)
+  active      Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id              Int                  @id @default(autoincrement())
+  userId          Int?
+  user            User?                @relation(fields: [userId], references: [id])
+  status          String               @default("PENDING")
+  total           Float
+  discount        Float                @default(0)
+  couponCode      String?
+  shippingName    String
+  shippingEmail   String
+  shippingAddress String
+  shippingPhone   String
+  trackingNumber  String?
+  items           OrderItem[]
+  statusHistory   OrderStatusHistory[]
+  couponUsages    CouponUsage[]
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int
+  unitPrice Float
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model OrderStatusHistory {
+  id        Int      @id @default(autoincrement())
+  orderId   Int
+  status    String
+  note      String?
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model Coupon {
+  id        Int          @id @default(autoincrement())
+  code      String       @unique
+  type      String
+  value     Float
+  minOrder  Float        @default(0)
+  maxUses   Int          @default(1)
+  usedCount Int          @default(0)
+  expiresAt DateTime?
+  active    Boolean      @default(true)
+  createdAt DateTime     @default(now())
+  usages    CouponUsage[]
+}
+
+model CouponUsage {
+  id       Int      @id @default(autoincrement())
+  couponId Int
+  userId   Int?
+  orderId  Int
+  coupon   Coupon   @relation(fields: [couponId], references: [id])
+  user     User?    @relation(fields: [userId], references: [id])
+  order    Order    @relation(fields: [orderId], references: [id])
+  usedAt   DateTime @default(now())
+}
+
+model ChatSession {
+  id        Int           @id @default(autoincrement())
+  userId    Int?
+  user      User?         @relation(fields: [userId], references: [id])
+  messages  ChatMessage[]
+  createdAt DateTime      @default(now())
+}
+
+model ChatMessage {
+  id        Int         @id @default(autoincrement())
+  sessionId Int
+  role      String
+  content   String
+  session   ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  createdAt DateTime    @default(now())
+}

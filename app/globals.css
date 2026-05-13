@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #1a1a2e;
+  --enerseal: #05539c;
+  --enerseal-light: #0a6bc4;
+  --enerseal-dark: #043d73;
+  --gold: #f9ae10;
+  --gold-dark: #d99400;
+  --gold-light: #ffc942;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-enerseal: var(--enerseal);
+  --color-enerseal-light: var(--enerseal-light);
+  --color-enerseal-dark: var(--enerseal-dark);
+  --color-gold: var(--gold);
+  --color-gold-dark: var(--gold-dark);
+  --color-gold-light: var(--gold-light);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-bebas);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a1a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Bebas Neue for headings */
+h1, h2, h3 {
+  font-family: var(--font-bebas), var(--font-inter), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a1a1aa;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #71717a;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus ring with brand colors */
+*:focus-visible {
+  outline: 2px solid var(--enerseal);
+  outline-offset: 2px;
+}
