@@ -31,4 +31,4 @@ jobs:
             sudo docker stop app || true
             sudo docker rm app || true
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/impermeabilizante-store
-            sudo docker run -d --name app -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/impermeabilizante-store
+            sudo docker run -d --name app -p 3000:3000 -e DATABASE_URL="file:./dev.db" -e JWT_SECRET="enerseal-jwt-secret-change-in-production-2024" ${{ secrets.DOCKER_USERNAME }}/impermeabilizante-store
