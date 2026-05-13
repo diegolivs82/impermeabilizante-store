@@ -37,7 +37,7 @@ export default function Home() {
             className="text-center max-w-3xl mx-auto text-white"
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-gold/20 text-gold text-sm font-medium mb-6 border border-gold/30 backdrop-blur-sm">
-              Soluciones Profesionales en Impermeabilización
+              Soluciones NOOOO Profesionales en Impermeabilización
             </span>
             <h1 className="text-5xl md:text-7xl font-heading mb-6 leading-tight tracking-wide drop-shadow-lg">
               Protege Tus Estructuras con{" "}
